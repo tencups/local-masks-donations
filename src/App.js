@@ -1,26 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Map from './Map'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import styled from "styled-components"
+
+const Container = styled.div`
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+`
+
+
+
+class App extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {address: ""}
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+handleChange(e){
+    this.setState({address: e.target.value})
 }
 
+handleSubmit(e){
+    e.preventDefault()
+}
+
+
+  render(){
+  return (<React.Fragment>
+    <Container>
+    <h1>Find local hospitals in need of masks.</h1>
+    <form onSubmit={this.handleSubmit}>
+            <label>
+              <input type="text" placeholder="Type your address" value={this.state.value} onChange={this.handleChange} />
+            </label>
+            <input type="submit" value="Submit" />
+          </form>
+    <Map address={this.state.address}/>
+    </Container>
+    </React.Fragment>)
+
+}}
 export default App;
